@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 import classes from "../../css/BurgerIngredient.module.css";
 
+//state order dictates picture order
 class BurgerIngredient extends Component {
   render() {
     let ingredient = null;
@@ -32,6 +33,9 @@ class BurgerIngredient extends Component {
       case "bacon":
         ingredient = <div className={classes.Bacon}></div>;
         break;
+      case "tomato":
+        ingredient = <div className={classes.Tomato}></div>;
+        break;
       default:
         ingredient = null;
     }
@@ -40,7 +44,7 @@ class BurgerIngredient extends Component {
 }
 
 BurgerIngredient.propTypes = {
-  type: PropTypes.string.isRequired
+  type: PropTypes.string.isRequired,
 };
 
 export default BurgerIngredient;

@@ -8,6 +8,7 @@ import OrderSummary from "../components/Burger/OrderSummary";
 
 //so yes, means don't touch, but also represents global constants
 const INGREDIENT_PRICES = {
+  tomato: 0.5,
   salad: 0.5,
   cheese: 0.4,
   meat: 1.3,
@@ -17,6 +18,7 @@ const INGREDIENT_PRICES = {
 class BurgerBuilder extends Component {
   state = {
     ingredients: {
+      tomato: 0,
       salad: 0,
       bacon: 0,
       cheese: 0,
