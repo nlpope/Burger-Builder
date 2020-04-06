@@ -82,7 +82,7 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinueHandler = () => {
-    alert("You continue!");
+    alert("Enjoy your overpriced burger!");
   };
 
   //did you know render is a life cycle method
