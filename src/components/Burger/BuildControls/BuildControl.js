@@ -2,9 +2,9 @@ import React from "react";
 
 import classes from "../../../css/BuildControl.module.css";
 
-const BuildControl = props => (
+const BuildControl = (props) => (
   <div className={classes.BuildControl}>
-    <div className={classes.label}>{props.label}</div>
+    <div className={classes.Label}>{props.label}</div>
     <button
       className={classes.Less}
       onClick={props.removed}
