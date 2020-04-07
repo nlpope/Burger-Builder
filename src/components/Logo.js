@@ -7,7 +7,8 @@ import classes from "../css/Logo.module.css";
 import burgerLogo from "../assets/images/burger.png";
 
 const Logo = (props) => (
-  <div className={classes.Logo}>
+  //props.height was replaced with the css modules method. disregard
+  <div className={classes.Logo} style={{ height: props.height }}>
     {/* to path where weback stored the image */}
     <img src={burgerLogo} alt="Burger Logo" />
   </div>

@@ -1,0 +1,13 @@
+.Menu {
+  width: 35px;
+  height: 5px;
+  background-color: white;
+  margin: 6px 0;
+  flex-flow: column;
+}
+
+@media (min-width: 499px) {
+  .DesktopOnly {
+    visibility: hidden;
+  }
+}
