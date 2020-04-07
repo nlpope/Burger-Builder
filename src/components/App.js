@@ -1,7 +1,7 @@
 //this is a dumb component (not a container, no state)
 //import React object from react package
 import React, { Component } from "react";
-import Layout from "../components/Layout";
+import Layout from "../containers/Layout";
 
 import BurgerBuilder from "../containers/BurgerBuilder";
 

@@ -53,6 +53,7 @@ class BurgerBuilder extends Component {
     const oldPrice = this.state.totalPrice;
     const newPrice = oldPrice + priceAddition;
     this.setState({ totalPrice: newPrice, ingredients: updatedIngredients });
+    //if you plan to use state in setState use prevState or dump contents of state into a copied object, array, etc. and use that (async)
     this.updatePurchaseState(updatedIngredients);
   };
 

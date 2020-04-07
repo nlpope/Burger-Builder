@@ -4,6 +4,7 @@
   background-color: white;
   margin: 6px 0;
   flex-flow: column;
+  border-radius: 15px;
 }
 
 @media (min-width: 499px) {
