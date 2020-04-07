@@ -43,6 +43,7 @@ class BurgerIngredient extends Component {
   }
 }
 
+//prop type validation ensures the ingredients passed to it are strings
 BurgerIngredient.propTypes = {
   type: PropTypes.string.isRequired,
 };
