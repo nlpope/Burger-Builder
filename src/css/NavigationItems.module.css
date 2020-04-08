@@ -5,7 +5,7 @@
   list-style: none;
   /* flex-flow: dictates how flex items are placed in the flex container defining main axis and direction */
   /* flex-flow: row; */
-  flex-flow: column;
+  display: flex;
   align-items: center;
   height: 100%;
 }

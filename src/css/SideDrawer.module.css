@@ -31,3 +31,7 @@
   height: 11%;
   margin: 32px;
 }
+
+.SideDrawerItems {
+  display: block;
+}
