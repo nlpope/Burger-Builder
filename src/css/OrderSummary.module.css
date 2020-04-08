@@ -1,0 +1,16 @@
+/* mobile */
+.OrderSummary {
+  height: 20em;
+  overflow: scroll;
+}
+
+.btn {
+  display: flex;
+}
+
+/* desktop */
+@media (min-height: 520px) {
+  .OrderSummary {
+    height: auto;
+  }
+}
