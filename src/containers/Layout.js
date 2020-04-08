@@ -1,3 +1,4 @@
+//could be a higher order component as it just wraps around App.js
 import React, { Component } from "react";
 
 import classes from "../css/Layout.module.css";
