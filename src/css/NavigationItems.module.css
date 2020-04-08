@@ -4,7 +4,8 @@
   padding: 0;
   list-style: none;
   /* flex-flow: dictates how flex items are placed in the flex container defining main axis and direction */
-  flex-flow: column;
+  /* flex-flow: row; */
+  display: flex;
   align-items: center;
   height: 100%;
 }
