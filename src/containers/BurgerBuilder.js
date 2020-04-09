@@ -5,6 +5,10 @@ import Burger from "../components/Burger/Burger";
 import BuildControls from "../components/Burger/BuildControls/BuildControls";
 import Modal from "../components/UI/Modal";
 import OrderSummary from "../components/Burger/OrderSummary";
+import axios from "../axios-orders";
+import Spinner from "../components/UI/Spinner";
+//withErrorHandler lowercase b/c we use it as wrapper, NOT in JSX
+import withErrorHandler from "../hoc/withErrorHandler";
 
 //so yes, means don't touch, but also represents global constants
 const INGREDIENT_PRICES = {
@@ -24,9 +28,10 @@ class BurgerBuilder extends Component {
       cheese: 0,
       meat: 0,
     },
-    totalPrice: 150,
+    totalPrice: 4,
     purchasable: false,
     purchasing: false,
+    loading: false,
   };
 
   updatePurchaseState(ingredients) {
@@ -83,7 +88,31 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinueHandler = () => {
-    alert("Enjoy your overpriced burger!");
+    this.setState({ loading: true });
+    //so firebase will create an 'orders' path from base url (.json is required for firebase stuff)
+    const order = {
+      ingredients: this.state.ingredients,
+      //recalculate price in server for producgtion ready app (user could dig into code and change this as we have it set up now)
+      price: this.state.totalPrice,
+      customer: {
+        name: "Noah Pope",
+        address: {
+          street: "Teststreet 1",
+          zipCode: "41351",
+          country: "United States",
+        },
+        email: "test@test.com",
+      },
+      deliveryMethod: "fastest",
+    };
+    axios
+      .post("/orders.json", order)
+      .then((response) => {
+        this.setState({ loading: false, purchasing: false });
+      })
+      .catch((error) => {
+        this.setState({ loading: false, purchasing: false });
+      });
   };
 
   //did you know render is a life cycle method
@@ -95,6 +124,17 @@ class BurgerBuilder extends Component {
     for (let key in disabledInfo) {
       disabledInfo[key] = disabledInfo[key] <= 0;
     }
+    let orderSummary = (
+      <OrderSummary
+        ingredients={this.state.ingredients}
+        purchaseCancelled={this.purchaseCancelHandler}
+        purchaseContinued={this.purchaseContinueHandler}
+        price={this.state.totalPrice}
+      />
+    );
+    if (this.state.loading) {
+      orderSummary = <Spinner />;
+    }
     //{salad: true, meat: false,...}
     return (
       <>
@@ -102,12 +142,7 @@ class BurgerBuilder extends Component {
           modalClosed={this.purchaseCancelHandler}
           show={this.state.purchasing}
         >
-          <OrderSummary
-            ingredients={this.state.ingredients}
-            purchaseCancelled={this.purchaseCancelHandler}
-            purchaseContinued={this.purchaseContinueHandler}
-            price={this.state.totalPrice}
-          />
+          {orderSummary}
         </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls
