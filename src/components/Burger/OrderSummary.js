@@ -6,7 +6,7 @@ import classes from "../../css/OrderSummary.module.css";
 //changing to class to add lifecycle hook/method
 //this is b/c we only want this to re-render if it's visible
 class OrderSummary extends Component {
-  //this could be a functional component
+  //this could be a functional component (don't need componentDidUpdate)
   componentDidUpdate() {
     console.log("[OrderSummary] did update");
   }
