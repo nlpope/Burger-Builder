@@ -1,4 +1,4 @@
-.Menu {
+.HamburgerMenu {
   width: 35px;
   height: 5px;
   background-color: white;
@@ -7,8 +7,13 @@
   border-radius: 15px;
 }
 
+div.Point {
+  cursor: pointer;
+}
+
 @media (min-width: 499px) {
   .DesktopOnly {
-    visibility: hidden;
+    /* visibility: hidden; */
+    display: none;
   }
 }
