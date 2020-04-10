@@ -7,7 +7,7 @@ const HamburgerMenu = (props) => {
     <>
       <div
         onClick={props.clicked}
-        className={(classes.Point, classes.DesktopOnly)}
+        className={[classes.Point, classes.DesktopOnly].join(" ")}
       >
         <div className={classes.HamburgerMenu}></div>
         <div className={classes.HamburgerMenu}></div>
