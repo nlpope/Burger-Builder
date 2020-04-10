@@ -8,14 +8,14 @@ import OrderSummary from "../components/Burger/OrderSummary";
 import axios from "../axios-orders";
 import Spinner from "../components/UI/Spinner";
 //withErrorHandler lowercase b/c we use it as wrapper, NOT in JSX
-import withErrorHandler from "../hoc/withErrorHandler";
+// import withErrorHandler from "../hoc/withErrorHandler";
 
 //so yes, means don't touch, but also represents global constants
 const INGREDIENT_PRICES = {
   tomato: 0.5,
   salad: 0.5,
   cheese: 0.4,
-  meat: 1.3,
+  meat: 2.3,
   bacon: 1.7,
 };
 
@@ -26,6 +26,7 @@ class BurgerBuilder extends Component {
     purchasable: false,
     purchasing: false,
     loading: false,
+    error: null,
   };
 
   //we're about to upload ingredients dynamically from the back end
@@ -35,8 +36,21 @@ class BurgerBuilder extends Component {
       .get("https://react-my-burger-1ecd2.firebaseio.com/ingredients.json")
       .then((response) => {
         this.setState({ ingredients: response.data });
-      });
+      })
+      .catch(this.handleErrors);
   }
+
+  handleErrors = (err) => {
+    let errorMessage;
+    if (err.response) {
+      errorMessage = err.response.status;
+    } else if (err.request) {
+      errorMessage = "Problem With Request!";
+    } else {
+      errorMessage = err.message;
+    }
+    this.setState({ error: errorMessage });
+  };
 
   updatePurchaseState(ingredients) {
     //create array of string entries(salad, bacon,...)
@@ -127,11 +141,13 @@ class BurgerBuilder extends Component {
     };
     for (let key in disabledInfo) {
       disabledInfo[key] = disabledInfo[key] <= 0;
+      //{salad: true, meat: false,...}
     }
 
     let orderSummary = null;
-
-    //{salad: true, meat: false,...}
+    if (this.state.error) {
+      orderSummary = this.state.error;
+    }
 
     let burger = <Spinner />;
     if (this.state.ingredients) {
@@ -157,6 +173,7 @@ class BurgerBuilder extends Component {
         />
       );
     }
+
     if (this.state.loading) {
       orderSummary = <Spinner />;
     }
@@ -165,7 +182,7 @@ class BurgerBuilder extends Component {
       <>
         <Modal
           modalClosed={this.purchaseCancelHandler}
-          show={this.state.purchasing}
+          show={this.state.purchasing || this.state.error}
         >
           {orderSummary}
         </Modal>
@@ -175,4 +192,4 @@ class BurgerBuilder extends Component {
   }
 }
 
-export default withErrorHandler(BurgerBuilder, axios);
+export default BurgerBuilder;
