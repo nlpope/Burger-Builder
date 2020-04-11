@@ -3,9 +3,9 @@ import React from "react";
 import classes from ".././../css/Burger.module.css";
 import BurgerIngredient from "../Burger/BurgerIngredient";
 
-const Burger = props => {
+const Burger = (props) => {
   let transformedIngredients = Object.keys(props.ingredients)
-    .map(igKey => {
+    .map((igKey) => {
       //footnotes 1 & 2
       return [...Array(props.ingredients[igKey])].map((_, i) => {
         //footnote 3
@@ -40,4 +40,5 @@ export default Burger;
  *
  * 3. Array(n) creates an array with n undefined slots
  * if igKey='salad' props.ingredients[igKey] = 1 or salad's value
+ * so if there are 2 salads Array() would make an array for salad with 2 undefined slots
  */

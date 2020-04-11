@@ -21,7 +21,13 @@ const INGREDIENT_PRICES = {
 
 class BurgerBuilder extends Component {
   state = {
-    ingredients: null,
+    ingredients: {
+      tomato: null,
+      salad: null,
+      bacon: null,
+      cheese: null,
+      meat: null,
+    },
     totalPrice: 4,
     purchasable: false,
     purchasing: false,
@@ -35,22 +41,14 @@ class BurgerBuilder extends Component {
     axios
       .get("https://react-my-burger-1ecd2.firebaseio.com/ingredients.json")
       .then((response) => {
-        this.setState({ ingredients: response.data });
+        let newState = { ...this.state.ingredients };
+        for (var key in response.data) {
+          newState[key] = response.data[key];
+        }
+        this.setState({ ingredients: newState });
       })
       .catch(this.handleErrors);
   }
-
-  handleErrors = (err) => {
-    let errorMessage;
-    if (err.response) {
-      errorMessage = err.response.status;
-    } else if (err.request) {
-      errorMessage = "Problem With Request!";
-    } else {
-      errorMessage = err.message;
-    }
-    this.setState({ error: errorMessage });
-  };
 
   updatePurchaseState(ingredients) {
     //create array of string entries(salad, bacon,...)
@@ -131,6 +129,18 @@ class BurgerBuilder extends Component {
       .catch((error) => {
         this.setState({ loading: false, purchasing: false });
       });
+  };
+
+  handleErrors = (err) => {
+    let errorMessage;
+    if (err.response) {
+      errorMessage = err.response.status;
+    } else if (err.request) {
+      errorMessage = "Problem With Request!";
+    } else {
+      errorMessage = err.message;
+    }
+    this.setState({ error: errorMessage });
   };
 
   //did you know render is a life cycle method
