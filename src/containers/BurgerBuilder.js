@@ -8,7 +8,7 @@ import OrderSummary from "../components/Burger/OrderSummary";
 import axios from "../axios-orders";
 import Spinner from "../components/UI/Spinner";
 //withErrorHandler lowercase b/c we use it as wrapper, NOT in JSX
-// import withErrorHandler from "../hoc/withErrorHandler";
+import withErrorHandler from "../hoc/withErrorHandler";
 
 //so yes, means don't touch, but also represents global constants
 const INGREDIENT_PRICES = {
@@ -32,7 +32,7 @@ class BurgerBuilder extends Component {
     purchasable: false,
     purchasing: false,
     loading: false,
-    error: null,
+    error: false,
   };
 
   //we're about to upload ingredients dynamically from the back end
@@ -47,8 +47,22 @@ class BurgerBuilder extends Component {
         }
         this.setState({ ingredients: newState });
       })
-      .catch(this.handleErrors);
+      .catch((error) => {
+        this.setState({ error: true });
+      });
   }
+
+  // handleErrors = (err) => {
+  //   let errorMessage;
+  //   if (err.response) {
+  //     errorMessage = err.response.status;
+  //   } else if (err.request) {
+  //     errorMessage = "Problem With Request!";
+  //   } else {
+  //     errorMessage = err.message;
+  //   }
+  //   this.setState({ error: errorMessage });
+  // };
 
   updatePurchaseState(ingredients) {
     //create array of string entries(salad, bacon,...)
@@ -131,18 +145,6 @@ class BurgerBuilder extends Component {
       });
   };
 
-  handleErrors = (err) => {
-    let errorMessage;
-    if (err.response) {
-      errorMessage = err.response.status;
-    } else if (err.request) {
-      errorMessage = "Problem With Request!";
-    } else {
-      errorMessage = err.message;
-    }
-    this.setState({ error: errorMessage });
-  };
-
   //did you know render is a life cycle method
   render() {
     const disabledInfo = {
@@ -155,15 +157,8 @@ class BurgerBuilder extends Component {
     }
 
     let orderSummary = null;
-    if (this.state.error) {
-      orderSummary = this.state.error;
-    }
 
-    let burger = this.state.error ? (
-      <p>Ingredients can't be loaded!</p>
-    ) : (
-      <Spinner />
-    );
+    let burger = <Spinner />;
     if (this.state.ingredients) {
       burger = (
         <>
@@ -196,7 +191,7 @@ class BurgerBuilder extends Component {
       <>
         <Modal
           modalClosed={this.purchaseCancelHandler}
-          show={this.state.purchasing || this.state.error}
+          show={this.state.purchasing}
         >
           {orderSummary}
         </Modal>
@@ -206,4 +201,4 @@ class BurgerBuilder extends Component {
   }
 }
 
-export default BurgerBuilder;
+export default withErrorHandler(BurgerBuilder, axios);
