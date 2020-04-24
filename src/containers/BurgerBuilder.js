@@ -143,6 +143,11 @@ class BurgerBuilder extends Component {
       .catch((error) => {
         this.setState({ loading: false, purchasing: false });
       });
+    /* GOAL: fix memory leaks on click & fix modal scrolls*/
+    this.props.history.push({ pathname: "/checkout" }, [
+      this.state.ingredients,
+    ]);
+    console.log(this.props);
   };
 
   //did you know render is a life cycle method

@@ -8,10 +8,11 @@ const withErrorHandler = (WrappedComponent, axios) => {
       error: null,
     };
 
-    componentWillUnmount() {
-      axios.interceptors.request.eject(this.reqInterceptor);
-      axios.interceptors.response.eject(this.resInterceptor);
-    }
+    //componentWillUnmount content was causing memory leaks
+    // componentWillUnmount() {
+    //   axios.interceptors.request.eject(this.reqInterceptor);
+    //   axios.interceptors.response.eject(this.resInterceptor);
+    // }
 
     errorConfirmedHandler = () => {
       this.setState({ error: null });

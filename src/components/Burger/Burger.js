@@ -4,6 +4,8 @@ import classes from ".././../css/Burger.module.css";
 import BurgerIngredient from "../Burger/BurgerIngredient";
 
 const Burger = (props) => {
+  console.log(props);
+  //Object.keys() returns the keys in the key/value pairs in object passed to it
   let transformedIngredients = Object.keys(props.ingredients)
     .map((igKey) => {
       //footnotes 1 & 2
