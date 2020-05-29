@@ -207,3 +207,4 @@ class BurgerBuilder extends Component {
 }
 
 export default withErrorHandler(BurgerBuilder, axios);
+// error handler only working with chrome not firefox
