@@ -13,9 +13,28 @@ class Checkout extends Component {
       meat: 1,
     },
   };
-  returnToBuild() {
-    this.props.history.goBack();
+
+  componentDidMount() {
+    //new function
+    const query = new URLSearchParams(this.props.location.search);
+    const ingredients = {};
+    for (let param of query.entries()) {
+      // ['salad', '1']
+      ingredients[param[0]] = +param[1];
+    }
+    this.setState({ ingredients: ingredients });
   }
+  // returnToBuild() {
+  //   this.props.history.goBack();
+  // }
+
+  checkoutCancelledHandler = () => {
+    this.props.history.goBack();
+  };
+
+  checkoutContinuedHandler = () => {
+    this.props.history.replace("/checkout/contact-data");
+  };
 
   render() {
     return (
@@ -26,8 +45,10 @@ class Checkout extends Component {
           component={() => CheckoutSummary(this.state.ingredients)}
         /> */}
         <CheckoutSummary
-          returnToBuild={() => this.returnToBuild()}
+          // returnToBuild={() => this.returnToBuild()}
           ingredients={this.state.ingredients}
+          checkoutCancelled={this.checkoutCancelledHandler}
+          checkoutContinued={this.checkoutContinuedHandler}
         />
       </div>
     );
