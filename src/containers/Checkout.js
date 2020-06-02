@@ -1,17 +1,13 @@
 import React, { Component } from "react";
+import { Route } from "react-router-dom";
 
 import CheckoutSummary from "../components/Order/CheckoutSummary";
+import ContactData from "../containers/ContactData";
 
 //this is the container that holds the state and other info for <Checkoutsummary />.
 class Checkout extends Component {
   state = {
-    ingredients: {
-      tomato: 1,
-      salad: 1,
-      bacon: 1,
-      cheese: 1,
-      meat: 1,
-    },
+    ingredients: {},
   };
 
   componentDidMount() {
@@ -49,6 +45,10 @@ class Checkout extends Component {
           ingredients={this.state.ingredients}
           checkoutCancelled={this.checkoutCancelledHandler}
           checkoutContinued={this.checkoutContinuedHandler}
+        />
+        <Route
+          path={this.props.match.path + "/contact-data"}
+          component={ContactData}
         />
       </div>
     );

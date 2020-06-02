@@ -7,9 +7,9 @@ import classes from "../../css/OrderSummary.module.css";
 //this is b/c we only want this to re-render if it's visible
 class OrderSummary extends Component {
   //this could be a functional component (don't need componentDidUpdate)
-  componentDidUpdate() {
-    console.log("[OrderSummary] did update");
-  }
+  // componentDidUpdate() {
+  //   console.log("[OrderSummary] did update");
+  // }
   render() {
     const ingredientSummary = Object.keys(this.props.ingredients).map(
       (igKey) => {
