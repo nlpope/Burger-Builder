@@ -13,6 +13,8 @@ class ContactData extends Component {
     },
   };
 
+  orderHandler = () => {};
+
   render() {
     return (
       <div className={classes.ContactData}>
