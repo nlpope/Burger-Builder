@@ -37,6 +37,7 @@ class BurgerBuilder extends Component {
 
   //we're about to upload ingredients dynamically from the back end
   //best way to do that (fetching data) is via componentDidMount()
+  //I'm getting a CORS error, but only in firefox and only on this desktop (phone works)
   componentDidMount() {
     axios
       .get("https://react-my-burger-1ecd2.firebaseio.com/ingredients.json")
