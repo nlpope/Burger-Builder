@@ -119,32 +119,6 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinueHandler = () => {
-    // this.setState({ loading: true });
-    // //so firebase will create an 'orders' path from base url (.json is required for firebase stuff)
-    // const order = {
-    //   ingredients: this.state.ingredients,
-    //   //recalculate price in server for producgtion ready app (user could dig into code and change this as we have it set up now)
-    //   price: this.state.totalPrice,
-    //   customer: {
-    //     name: "Noah Pope",
-    //     address: {
-    //       street: "Teststreet 1",
-    //       zipCode: "41351",
-    //       country: "United States",
-    //     },
-    //     email: "test@test.com",
-    //   },
-    //   deliveryMethod: "fastest",
-    // };
-    // axios
-    //   .post("/orders.json", order)
-    //   .then((response) => {
-    //     this.setState({ loading: false, purchasing: false });
-    //   })
-    //   .catch((error) => {
-    //     this.setState({ loading: false, purchasing: false });
-    //   });
-    /* GOAL: fix memory leaks on click & fix modal scrolls*/
     const queryParams = [];
     for (let i in this.state.ingredients) {
       queryParams.push(
@@ -154,12 +128,12 @@ class BurgerBuilder extends Component {
           encodeURIComponent(this.state.ingredients[i])
       );
     }
+    queryParams.push("price=" + this.state.totalPrice);
     const queryString = queryParams.join("&");
     this.props.history.push({
       pathname: "/checkout",
       search: "?" + queryString,
     });
-    console.log(this.props);
   };
 
   //did you know render is a life cycle method
