@@ -56,10 +56,11 @@ class Checkout extends Component {
           path={this.props.match.path + "/contact-data"}
           // component={ContactData}
           // but rendering it manually allows you to pass props
-          render={() => (
+          render={(props) => (
             <ContactData
               ingredients={this.state.ingredients}
               price={this.state.totalPrice}
+              {...props}
             />
           )}
         />
